@@ -1,6 +1,9 @@
 package com.martin.calcite.sql.parser.visitor;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +35,7 @@ import com.martin.calcite.sql.parser.expression.ColumnExpression;
 import com.martin.calcite.sql.parser.expression.ConstantExpression;
 import com.martin.calcite.sql.parser.expression.Expression;
 import com.martin.calcite.sql.parser.expression.ExpressionList;
-import com.martin.calcite.sql.parser.expression.type.QueryDataType;
+import com.martin.calcite.sql.parser.metadata.DataType;
 import com.martin.calcite.sql.parser.visitor.convert.ExpressionConverter;
 import com.martin.calcite.sql.parser.visitor.convert.ExpressionConverterManager;
 
@@ -53,30 +56,26 @@ public class SqlToExprVisitor extends SqlBasicVisitor<Expression<?>> {
 
     @Override
     public Expression<?> visit(SqlLiteral literal) {
-        ConstantExpression<Object> expression = new ConstantExpression<>();
+        ConstantExpression<?> expression;
         if (literal instanceof SqlNumericLiteral) {
             SqlNumericLiteral numericLiteral = (SqlNumericLiteral) literal;
             BigDecimal value = literal.getValueAs(BigDecimal.class);
-            expression.setValue(value);
-            expression.setType(numericLiteral.isExact() ? QueryDataType.DECIMAL : QueryDataType.DOUBLE);
+            expression = ConstantExpression.create(value, numericLiteral.isExact() ? DataType.DECIMAL : DataType.DOUBLE);
         } else if (literal instanceof SqlBinaryStringLiteral) {
             BitString value = literal.getValueAs(BitString.class);
-            expression.setValue(value.toString());
-            expression.setType(QueryDataType.VARCHAR);
+            expression = ConstantExpression.create(value.toString(), DataType.VARCHAR);
         } else if (literal instanceof SqlCharStringLiteral) {
             NlsString value = literal.getValueAs(NlsString.class);
-            expression.setValue(value.getValue());
-            expression.setType(QueryDataType.VARCHAR);
+            expression = ConstantExpression.create(value.getValue(), DataType.VARCHAR);
         } else if (literal instanceof SqlDateLiteral) {
             DateString value = literal.getValueAs(DateString.class);
-            expression.setValue(value);
-            expression.setType(QueryDataType.DATE);
+            expression = ConstantExpression.create(new Date(value.getMillisSinceEpoch()), DataType.DATE);
         } else if (literal instanceof SqlTimeLiteral) {
-            expression.setValue(literal.getValueAs(TimeString.class));
-            expression.setType(QueryDataType.TIME);
+            TimeString value = literal.getValueAs(TimeString.class);
+            expression = ConstantExpression.create(new Time(value.getMillisOfDay()), DataType.TIME);
         } else if (literal instanceof SqlTimestampLiteral) {
-            expression.setValue(literal.getValueAs(TimestampString.class));
-            expression.setType(QueryDataType.TIMESTAMP);
+            TimestampString value = literal.getValueAs(TimestampString.class);
+            expression = ConstantExpression.create(new Timestamp(value.getMillisSinceEpoch()), DataType.TIMESTAMP);
         } else {
             throw new IllegalStateException("不支持的数据类型，" + literal.getClass().getName());
         }
@@ -119,9 +118,7 @@ public class SqlToExprVisitor extends SqlBasicVisitor<Expression<?>> {
 
     @Override
     public Expression<?> visit(SqlIdentifier id) {
-        ColumnExpression<Object> expression = new ColumnExpression<>();
-        expression.setName(id.toString());
-        return expression;
+        return ColumnExpression.create(id.toString());
     }
 
     @Override

@@ -21,7 +21,7 @@ public class ComparisonPredicateConverter extends AbstractExpressionConverter<Co
 
     @Override
     protected ComparisonPredicate newInstance(SqlCall call, List<Expression<?>> operands) {
-        return new ComparisonPredicate(operands.get(0), operands.get(1), convert2ComparisonMode(call.getKind()));
+        return ComparisonPredicate.create(operands.get(0), operands.get(1), convert2ComparisonMode(call.getKind()));
     }
 
     private ComparisonMode convert2ComparisonMode(SqlKind kind) {

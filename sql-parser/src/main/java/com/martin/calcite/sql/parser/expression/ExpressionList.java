@@ -35,11 +35,6 @@ public class ExpressionList implements List<Expression<?>>, Expression<Void> {
     }
 
     @Override
-    public Void eval(Object object) {
-        return null;
-    }
-
-    @Override
     public int size() {
         return list.size();
     }

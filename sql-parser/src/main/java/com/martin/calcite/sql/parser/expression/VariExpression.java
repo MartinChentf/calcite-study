@@ -15,11 +15,11 @@ public abstract class VariExpression<T> implements Expression<T> {
 
     protected ExpressionList operands;
 
-    public VariExpression() {
+    protected VariExpression() {
         this.operands = new ExpressionList();
     }
 
-    public VariExpression(Expression<?>... operands) {
+    protected VariExpression(Expression<?>... operands) {
         this.operands = new ExpressionList(Arrays.asList(operands));
     }
 

@@ -10,20 +10,17 @@ package com.martin.calcite.sql.parser.expression;
  */
 public abstract class UniExpression<T> implements Expression<T> {
 
-    private Expression<?> operand;
+    protected Expression<?> operand;
 
-    public UniExpression() {
+    protected UniExpression() {
+        // NOP
     }
 
-    public UniExpression(Expression<?> operand) {
+    protected UniExpression(Expression<?> operand) {
         this.operand = operand;
     }
 
     public Expression<?> getOperand() {
         return operand;
-    }
-
-    public void setOperand(Expression<?> operand) {
-        this.operand = operand;
     }
 }

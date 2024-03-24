@@ -10,13 +10,14 @@ package com.martin.calcite.sql.parser.expression;
  */
 public abstract class BiExpression<T> implements Expression<T> {
 
-    private Expression<?> operand1;
-    private Expression<?> operand2;
+    protected Expression<?> operand1;
+    protected Expression<?> operand2;
 
-    public BiExpression() {
+    protected BiExpression() {
+        // NOP
     }
 
-    public BiExpression(Expression<?> operand1, Expression<?> operand2) {
+    protected BiExpression(Expression<?> operand1, Expression<?> operand2) {
         this.operand1 = operand1;
         this.operand2 = operand2;
     }
@@ -25,15 +26,7 @@ public abstract class BiExpression<T> implements Expression<T> {
         return operand1;
     }
 
-    public void setOperand1(Expression<?> operand1) {
-        this.operand1 = operand1;
-    }
-
     public Expression<?> getOperand2() {
         return operand2;
-    }
-
-    public void setOperand2(Expression<?> operand2) {
-        this.operand2 = operand2;
     }
 }

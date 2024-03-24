@@ -17,6 +17,6 @@ import com.martin.calcite.sql.parser.expression.NullsFirstExpression;
 public class NullsFirstExpressionConverter extends AbstractExpressionConverter<NullsFirstExpression<?>> {
     @Override
     protected NullsFirstExpression<?> newInstance(SqlCall call, List<Expression<?>> operands) {
-        return new NullsFirstExpression<>(operands.get(0));
+        return NullsFirstExpression.create(operands.get(0));
     }
 }

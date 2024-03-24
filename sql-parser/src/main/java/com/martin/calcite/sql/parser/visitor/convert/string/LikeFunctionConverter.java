@@ -20,6 +20,6 @@ public class LikeFunctionConverter extends AbstractExpressionConverter<LikeFunct
     @Override
     protected LikeFunction newInstance(SqlCall call, List<Expression<?>> operands) {
         SqlLikeOperator operator = (SqlLikeOperator) call.getOperator();
-        return new LikeFunction(operands.get(0), operands.get(1), operator.isNegated());
+        return LikeFunction.create(operands.get(0), operands.get(1), operator.isNegated());
     }
 }

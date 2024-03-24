@@ -19,6 +19,6 @@ public class NotPredicateConverter extends AbstractExpressionConverter<NotPredic
 
     @Override
     protected NotPredicate newInstance(SqlCall call, List<Expression<?>> operands) {
-        return new NotPredicate(operands.get(0));
+        return NotPredicate.create(operands.get(0));
     }
 }

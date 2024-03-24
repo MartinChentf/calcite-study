@@ -23,23 +23,11 @@ public abstract class TriExpression<T> implements Expression<T> {
         return operand1;
     }
 
-    public void setOperand1(Expression<?> operand1) {
-        this.operand1 = operand1;
-    }
-
     public Expression<?> getOperand2() {
         return operand2;
     }
 
-    public void setOperand2(Expression<?> operand2) {
-        this.operand2 = operand2;
-    }
-
     public Expression<?> getOperand3() {
         return operand3;
-    }
-
-    public void setOperand3(Expression<?> operand3) {
-        this.operand3 = operand3;
     }
 }

@@ -18,6 +18,6 @@ import com.martin.calcite.sql.parser.visitor.convert.AbstractExpressionConverter
 public class DivideFunctionConverter extends AbstractExpressionConverter<DivideFunction<?>> {
     @Override
     protected DivideFunction<?> newInstance(SqlCall call, List<Expression<?>> operands) {
-        return new DivideFunction<>(operands.get(0), operands.get(1));
+        return DivideFunction.create(operands.get(0), operands.get(1));
     }
 }

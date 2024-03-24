@@ -7,6 +7,7 @@ import org.apache.calcite.sql.parser.SqlParser;
 import org.apache.calcite.sql.parser.SqlParser.Config;
 
 import com.martin.calcite.sql.parser.expression.Expression;
+import com.martin.calcite.sql.parser.expression.ExpressionList;
 import com.martin.calcite.sql.parser.visitor.QuerySegmentType;
 import com.martin.calcite.sql.parser.visitor.SqlToExprVisitor;
 
@@ -26,9 +27,9 @@ public class ExpressionUtil {
      * @param columns 字段列表
      * @return 表达式
      */
-    public static Expression<?> parseSelectList(String... columns) {
+    public static ExpressionList parseSelectList(String... columns) {
         String sql = "SELECT " + String.join(",", columns);
-        return convertSql2Expr(sql, QuerySegmentType.SELECT);
+        return (ExpressionList) convertSql2Expr(sql, QuerySegmentType.SELECT);
     }
 
     /**
@@ -48,9 +49,9 @@ public class ExpressionUtil {
      * @param groupBy 分组列表
      * @return 表达式
      */
-    public static Expression<?> parseGroupBy(String... groupBy) {
+    public static ExpressionList parseGroupBy(String... groupBy) {
         String sql = "SELECT * FROM T_TABLE GROUP BY " + String.join(",", groupBy);
-        return convertSql2Expr(sql, QuerySegmentType.GROUP);
+        return (ExpressionList) convertSql2Expr(sql, QuerySegmentType.GROUP);
     }
 
     /**
@@ -59,9 +60,9 @@ public class ExpressionUtil {
      * @param orderBy 排序字段
      * @return 表达式
      */
-    public static Expression<?> parseOrderList(String... orderBy) {
+    public static ExpressionList parseOrderList(String... orderBy) {
         String sql = "SELECT * FROM T_TABLE ORDER BY " + String.join(",", orderBy);
-        return convertSql2Expr(sql, QuerySegmentType.ORDER);
+        return (ExpressionList) convertSql2Expr(sql, QuerySegmentType.ORDER);
     }
 
     /**

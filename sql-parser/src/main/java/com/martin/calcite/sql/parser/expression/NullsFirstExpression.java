@@ -8,12 +8,16 @@ package com.martin.calcite.sql.parser.expression;
  * @since 1.8
  */
 public class NullsFirstExpression<T> extends UniExpression<T> {
-    public NullsFirstExpression(Expression<?> operand) {
+
+    public NullsFirstExpression() {
+        // NOP
+    }
+
+    private NullsFirstExpression(Expression<?> operand) {
         super(operand);
     }
 
-    @Override
-    public T eval(Object object) {
-        return null;
+    public static NullsFirstExpression<?> create(Expression<?> operand) {
+        return new NullsFirstExpression<>(operand);
     }
 }

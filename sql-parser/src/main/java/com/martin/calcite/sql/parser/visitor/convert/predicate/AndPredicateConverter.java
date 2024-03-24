@@ -19,6 +19,6 @@ public class AndPredicateConverter extends AbstractExpressionConverter<AndPredic
 
     @Override
     protected AndPredicate newInstance(SqlCall call, List<Expression<?>> operands) {
-        return new AndPredicate(operands.get(0), operands.get(1));
+        return AndPredicate.create(operands.get(0), operands.get(1));
     }
 }

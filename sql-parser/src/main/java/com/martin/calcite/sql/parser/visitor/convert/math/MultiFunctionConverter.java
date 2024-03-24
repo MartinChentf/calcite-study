@@ -18,6 +18,6 @@ import com.martin.calcite.sql.parser.visitor.convert.AbstractExpressionConverter
 public class MultiFunctionConverter extends AbstractExpressionConverter<MultiFunction<?>> {
     @Override
     protected MultiFunction<?> newInstance(SqlCall call, List<Expression<?>> operands) {
-        return new MultiFunction<>(operands.get(0), operands.get(1));
+        return MultiFunction.create(operands.get(0), operands.get(1));
     }
 }

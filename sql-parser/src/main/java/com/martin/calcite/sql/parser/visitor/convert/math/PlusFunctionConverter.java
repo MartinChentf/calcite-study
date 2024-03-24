@@ -18,6 +18,6 @@ import com.martin.calcite.sql.parser.visitor.convert.AbstractExpressionConverter
 public class PlusFunctionConverter extends AbstractExpressionConverter<PlusFunction<?>> {
     @Override
     protected PlusFunction<?> newInstance(SqlCall call, List<Expression<?>> operands) {
-        return new PlusFunction<>(operands.get(0), operands.get(1));
+        return PlusFunction.create(operands.get(0), operands.get(1));
     }
 }

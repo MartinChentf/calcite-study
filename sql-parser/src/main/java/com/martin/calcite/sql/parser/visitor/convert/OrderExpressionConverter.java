@@ -18,6 +18,6 @@ import com.martin.calcite.sql.parser.expression.OrderExpression;
 public class OrderExpressionConverter extends AbstractExpressionConverter<OrderExpression<?>> {
     @Override
     protected OrderExpression<?> newInstance(SqlCall call, List<Expression<?>> operands) {
-        return new OrderExpression<>(operands.get(0), call.getKind() == SqlKind.DESCENDING);
+        return OrderExpression.create(operands.get(0), call.getKind() == SqlKind.DESCENDING);
     }
 }

@@ -2,6 +2,8 @@ package com.martin.calcite.sql.parser.expression.string;
 
 import com.martin.calcite.sql.parser.expression.BiExpression;
 import com.martin.calcite.sql.parser.expression.Expression;
+import com.martin.calcite.sql.parser.metadata.DataType;
+import com.martin.calcite.sql.parser.metadata.RowSet;
 
 /**
  * LikeFunction <br>
@@ -14,21 +16,31 @@ public class LikeFunction extends BiExpression<Boolean> {
 
     private boolean negated;
 
-    public LikeFunction(Expression<?> operand1, Expression<?> operand2, boolean negated) {
+    public LikeFunction() {
+        // NOP
+    }
+
+    private LikeFunction(Expression<?> operand1, Expression<?> operand2, boolean negated) {
         super(operand1, operand2);
         this.negated = negated;
     }
 
+    public static LikeFunction create(Expression<?> operand1, Expression<?> operand2, boolean negated) {
+        return new LikeFunction(operand1, operand2, negated);
+    }
+
     @Override
-    public Boolean eval(Object object) {
+    public Boolean eval(RowSet rowSet) {
+        // TODO: 2024/3/24 待实现
         return null;
+    }
+
+    @Override
+    public DataType evalType(RowSet rowSet) {
+        return DataType.BOOLEAN;
     }
 
     public boolean isNegated() {
         return negated;
-    }
-
-    public void setNegated(boolean negated) {
-        this.negated = negated;
     }
 }

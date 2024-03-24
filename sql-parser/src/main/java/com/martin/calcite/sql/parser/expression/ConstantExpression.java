@@ -1,6 +1,7 @@
 package com.martin.calcite.sql.parser.expression;
 
-import com.martin.calcite.sql.parser.expression.type.QueryDataType;
+import com.martin.calcite.sql.parser.metadata.DataType;
+import com.martin.calcite.sql.parser.metadata.RowSet;
 
 /**
  * ConstantExpression <br>
@@ -12,26 +13,36 @@ import com.martin.calcite.sql.parser.expression.type.QueryDataType;
 public class ConstantExpression<T> implements Expression<T> {
 
     private T value;
-    private QueryDataType type;
+    private DataType type;
+
+    public ConstantExpression() {
+        // NOP
+    }
+
+    private ConstantExpression(T value, DataType type) {
+        this.value = value;
+        this.type = type;
+    }
+
+    public static ConstantExpression<?> create(Object value, DataType type) {
+        return new ConstantExpression<>(value, type);
+    }
 
     @Override
-    public T eval(Object object) {
-        return null;
+    public T eval(RowSet rowSet) {
+        return value;
+    }
+
+    @Override
+    public DataType evalType(RowSet rowSet) {
+        return type;
     }
 
     public T getValue() {
         return value;
     }
 
-    public void setValue(T value) {
-        this.value = value;
-    }
-
-    public QueryDataType getType() {
+    public DataType getType() {
         return type;
-    }
-
-    public void setType(QueryDataType type) {
-        this.type = type;
     }
 }

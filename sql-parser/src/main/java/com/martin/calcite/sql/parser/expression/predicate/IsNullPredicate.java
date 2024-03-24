@@ -2,6 +2,8 @@ package com.martin.calcite.sql.parser.expression.predicate;
 
 import com.martin.calcite.sql.parser.expression.Expression;
 import com.martin.calcite.sql.parser.expression.UniExpression;
+import com.martin.calcite.sql.parser.metadata.DataType;
+import com.martin.calcite.sql.parser.metadata.RowSet;
 
 /**
  * IsNullPredicate <br>
@@ -12,12 +14,25 @@ import com.martin.calcite.sql.parser.expression.UniExpression;
  */
 public class IsNullPredicate extends UniExpression<Boolean> {
 
-    public IsNullPredicate(Expression<?> operand) {
+    public IsNullPredicate() {
+        // NOP
+    }
+
+    private IsNullPredicate(Expression<?> operand) {
         super(operand);
     }
 
+    public static IsNullPredicate create(Expression<?> operand) {
+        return new IsNullPredicate(operand);
+    }
+
     @Override
-    public Boolean eval(Object object) {
-        return null;
+    public Boolean eval(RowSet rowSet) {
+        return TernaryLogic.isNull(operand.eval(rowSet));
+    }
+
+    @Override
+    public DataType evalType(RowSet rowSet) {
+        return DataType.BOOLEAN;
     }
 }

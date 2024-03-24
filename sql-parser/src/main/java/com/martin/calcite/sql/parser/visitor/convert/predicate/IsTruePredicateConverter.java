@@ -18,6 +18,6 @@ import com.martin.calcite.sql.parser.visitor.convert.AbstractExpressionConverter
 public class IsTruePredicateConverter extends AbstractExpressionConverter<IsTruePredicate> {
     @Override
     protected IsTruePredicate newInstance(SqlCall call, List<Expression<?>> operands) {
-        return new IsTruePredicate(operands.get(0));
+        return IsTruePredicate.create(operands.get(0));
     }
 }

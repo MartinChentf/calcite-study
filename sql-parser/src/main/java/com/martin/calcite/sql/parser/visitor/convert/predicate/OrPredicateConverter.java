@@ -19,6 +19,6 @@ public class OrPredicateConverter extends AbstractExpressionConverter<OrPredicat
 
     @Override
     protected OrPredicate newInstance(SqlCall call, List<Expression<?>> operands) {
-        return new OrPredicate(operands.get(0), operands.get(1));
+        return OrPredicate.create(operands.get(0), operands.get(1));
     }
 }
